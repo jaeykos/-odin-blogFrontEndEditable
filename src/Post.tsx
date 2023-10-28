@@ -13,8 +13,8 @@ function Post() {
   const { id } = useParams();
 
   useEffect(() => {
-    console.log("http://localhost:3000/posts/" + id);
-    fetch("http://localhost:3000/posts/" + id)
+    console.log("https://odin-blog-backend.onrender.com/posts/" + id);
+    fetch("https://odin-blog-backend.onrender.com/posts/" + id)
       .then((res) => {
         return res.json();
       })
@@ -39,7 +39,7 @@ function Post() {
       content: form.content.value,
     });
 
-    fetch("http://localhost:3000/posts/" + id, {
+    fetch("https://odin-blog-backend.onrender.com/posts/" + id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

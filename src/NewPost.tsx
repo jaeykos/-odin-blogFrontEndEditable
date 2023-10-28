@@ -17,7 +17,7 @@ function NewPost() {
       content: form.content.value,
     });
     console.log(tempJSON);
-    fetch("http://localhost:3000/posts/", {
+    fetch("https://odin-blog-backend.onrender.com/posts/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -6,7 +6,7 @@ function App() {
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/posts")
+    fetch("https://odin-blog-backend.onrender.com/posts")
       .then((res) => {
         return res.json();
       })
@@ -17,14 +17,14 @@ function App() {
   }, []);
 
   function handleDeletePost(id) {
-    fetch("http://localhost:3000/posts/" + id, { method: "DELETE" }).then(
-      (res) => {
-        if (res.status >= 200 && res.status <= 299) {
-          alert("Post has been successfully deleted.");
-          window.location.href = "/";
-        }
+    fetch("https://odin-blog-backend.onrender.com/posts/" + id, {
+      method: "DELETE",
+    }).then((res) => {
+      if (res.status >= 200 && res.status <= 299) {
+        alert("Post has been successfully deleted.");
+        window.location.href = "/";
       }
-    );
+    });
   }
 
   return (
