@@ -39,8 +39,9 @@ function App() {
         to same back-end server.
       </p>
       <p className="mb-3">
-        This is editable website. Click <a href="">here</a> to go to read-only
-        website.
+        This is editable website. Click{" "}
+        <a href="https://jaekang-odin-blog-readonly.netlify.app">here</a> to go
+        to read-only website.
       </p>
       <a href="posts/new" className="text-black">
         <button> Create New Post</button>
