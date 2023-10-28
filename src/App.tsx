@@ -3,7 +3,7 @@ import "./App.css";
 import dateFormat from "dateformat";
 
 function App() {
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState<any[]>([]);
 
   useEffect(() => {
     fetch("https://odin-blog-backend.onrender.com/posts")
@@ -16,7 +16,7 @@ function App() {
       });
   }, []);
 
-  function handleDeletePost(id) {
+  function handleDeletePost(id: any) {
     fetch("https://odin-blog-backend.onrender.com/posts/" + id, {
       method: "DELETE",
     }).then((res) => {

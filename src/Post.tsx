@@ -25,7 +25,7 @@ function Post() {
       });
   }, []);
 
-  function handleSubmit(e) {
+  function handleSubmit(e: any) {
     e.preventDefault();
 
     const form = e.target;

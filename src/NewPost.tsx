@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
 function NewPost() {
   const [newPost, setNewPost] = useState({
     title: " ",
     content: " ",
   });
-  const { id } = useParams();
 
-  function handleSubmit(e) {
+  function handleSubmit(e: any) {
     e.preventDefault();
 
     const form = e.target;
