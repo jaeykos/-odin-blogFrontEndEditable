@@ -3,7 +3,8 @@ import "./App.css";
 import dateFormat from "dateformat";
 
 function App() {
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState(null as any);
+  const [isServerOk, setIsServerOk] = useState(true);
 
   useEffect(() => {
     fetch("https://odin-blog-backend.onrender.com/posts")
@@ -13,8 +14,59 @@ function App() {
       .then((data) => {
         console.log(data);
         setPosts(data);
+      })
+      .catch(() => {
+        setIsServerOk(false);
       });
   }, []);
+
+  function DataLoad() {
+    if (!isServerOk) {
+      return <p>server not okay</p>;
+    }
+    if (posts) {
+      console.log(posts);
+      return (
+        <div id="blogCards" className="mt-3">
+          {posts?.map((post: any) => (
+            <div className="my-5">
+              <div className="flex flex-row items-end">
+                <a
+                  href={"posts/" + post._id}
+                  className="font-bold mr-3 text-xl text-black"
+                >
+                  {post.title}
+                </a>
+                <div className="flex flex-col text-sm  justify-end">
+                  {dateFormat(post.dateUpdated, "yyyy.m.d")}
+                </div>
+                <a
+                  className="flex flex-row text-black items-end"
+                  href={"posts/" + post._id}
+                >
+                  <button className="ml-3 py-0 px-2 text-xs">Edit</button>
+                </a>
+                <button
+                  onClick={() => {
+                    handleDeletePost(post._id);
+                  }}
+                  className="ml-2 h-fit py-0 px-2 text-xs "
+                >
+                  Delete
+                </button>
+              </div>
+              <div className="max-h-32  overflow-hidden">{post.content}</div>
+            </div>
+          ))}
+        </div>
+      );
+    } else {
+      console.log(posts);
+      return (
+        <p className="font-bold mr-3 text-xl text-black">Contents Loading...</p>
+      );
+    }
+  }
 
   function handleDeletePost(id: any) {
     fetch("https://odin-blog-backend.onrender.com/posts/" + id, {
@@ -46,38 +98,7 @@ function App() {
       <a href="posts/new" className="text-black">
         <button> Create New Post</button>
       </a>
-      <div id="blogCards" className="mt-3">
-        {posts?.map((post: any) => (
-          <div className="my-5">
-            <div className="flex flex-row items-end">
-              <a
-                href={"posts/" + post._id}
-                className="font-bold mr-3 text-xl text-black"
-              >
-                {post.title}
-              </a>
-              <div className="flex flex-col text-sm  justify-end">
-                {dateFormat(post.dateUpdated, "yyyy.m.d")}
-              </div>
-              <a
-                className="flex flex-row text-black items-end"
-                href={"posts/" + post._id}
-              >
-                <button className="ml-3 py-0 px-2 text-xs">Edit</button>
-              </a>
-              <button
-                onClick={() => {
-                  handleDeletePost(post._id);
-                }}
-                className="ml-2 h-fit py-0 px-2 text-xs "
-              >
-                Delete
-              </button>
-            </div>
-            <div className="max-h-32  overflow-hidden">{post.content}</div>
-          </div>
-        ))}
-      </div>
+      <DataLoad />
     </div>
   );
 }
